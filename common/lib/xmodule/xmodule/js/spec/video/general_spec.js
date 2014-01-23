@@ -80,7 +80,7 @@
                             '0.75': sub,
                             '1.0': sub,
                             '1.25': sub,
-                            '1.5': sub
+                            '1.50': sub
                         });
                     });
 
@@ -97,7 +97,7 @@
                             '0.75': sub,
                             '1.0': sub,
                             '1.25': sub,
-                            '1.5': sub
+                            '1.50': sub
                         });
                     });
 
@@ -202,6 +202,12 @@
                     expect(state.youtubeId()).toEqual('abcdefghijkl');
                 });
             });
+
+            describe('speed is absent in the list of video speeds', function () {
+                it('return the video id for 1.0x speed', function () {
+                    expect(state.youtubeId('0.0')).toEqual('cogebirgzzM');
+                });
+            });
         });
 
         describe('YouTube video in FireFox will cue first', function () {
@@ -248,6 +254,16 @@
                 expect(state.videoPlayer.startTime).toBe(0);
                 expect(state.videoPlayer.endTime).toBe(null);
             });
+        });
+
+        it('getCurrentLanguage', function () {
+            loadFixtures('video.html');
+            $('.video').data('transcript-language', 'de');
+            state = new Video('#example');
+
+            expect(state.getCurrentLanguage()).toBe('de');
+            state.lang = null;
+            expect(state.getCurrentLanguage()).toBe('en');
         });
 
         describe('checking start and end times', function () {

@@ -76,6 +76,7 @@ function (VideoPlayer, CookieStorage) {
         var methodsDict = {
             bindTo: bindTo,
             fetchMetadata: fetchMetadata,
+            getCurrentLanguage: getCurrentLanguage,
             getDuration: getDuration,
             getVideoMetadata: getVideoMetadata,
             initialize: initialize,
@@ -201,7 +202,7 @@ function (VideoPlayer, CookieStorage) {
             '0.75': state.config.sub,
             '1.0':  state.config.sub,
             '1.25': state.config.sub,
-            '1.5':  state.config.sub
+            '1.50':  state.config.sub
         };
 
         // We must have at least one non-YouTube video source available.
@@ -277,7 +278,7 @@ function (VideoPlayer, CookieStorage) {
                     return regExp.test(value.toString());
                 },
                 // List of keys that will be extracted form the configuration.
-                extractKeys = ['speed'],
+                extractKeys = ['speed', 'transcript-language'],
                 // Compatibility keys used to change names of some parameters in
                 // the final configuration.
                 compatKeys = {
@@ -381,11 +382,14 @@ function (VideoPlayer, CookieStorage) {
             __dfd__ = $.Deferred(),
             isTouch = onTouchBasedDevice() || '',
             storage = CookieStorage('video_player'),
+
             speed = storage.getItem('video_speed_' + id) ||
                 el.data('speed') ||
                 storage.getItem('general_speed') ||
                 el.data('general-speed') ||
-                '1.0';
+                '1.0',
+
+            lang = storage.getItem('language') || el.data('transcript-language') || 'en';
 
         if (isTouch) {
             el.addClass('is-touch');
@@ -400,6 +404,7 @@ function (VideoPlayer, CookieStorage) {
             isFullScreen: false,
             isTouch: isTouch,
             speed: Number(speed).toFixed(2).replace(/\.00$/, '.0'),
+            lang: lang,
             storage: storage
         });
 
@@ -672,7 +677,7 @@ function (VideoPlayer, CookieStorage) {
     }
 
     function youtubeId(speed) {
-        return this.videos[speed || this.speed];
+        return this.videos[speed || this.speed] || this.videos['1.0'];
     }
 
     function getDuration() {
@@ -681,6 +686,10 @@ function (VideoPlayer, CookieStorage) {
         } catch (err) {
             return this.metadata[this.youtubeId('1.0')].duration;
         }
+    }
+
+    function getCurrentLanguage() {
+        return this.lang || 'en';
     }
 
     /*
