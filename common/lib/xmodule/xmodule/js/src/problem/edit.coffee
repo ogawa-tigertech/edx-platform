@@ -329,7 +329,13 @@ class @MarkdownEditingDescriptor extends XModule.Descriptor
 
           return selectString;
       });
-
+      
+      // replace labels
+      // looks for >arbitrary text< and inserts it into the label attribute of the input type directly below the text. 
+      xml = xml.replace(/>(.*)<([\s\S]+?)<(textline|optioninput|formulaequationinput|choicegroup|checkboxgroup)/gm, function(match, p1, p2, p3){
+              return p1 + '\n' + p2 + '<' + p3 + ' label="' + p1.replace('"', '\\"') + '"';
+      });
+            
       // replace code blocks
       xml = xml.replace(/\[code\]\n?([^\]]*)\[\/?code\]/gmi, function(match, p1) {
           var selectString = '<pre><code>\n' + p1 + '</code></pre>';
