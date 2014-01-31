@@ -846,7 +846,7 @@ class MongoModuleStore(ModuleStoreWriteBase):
         location = Location.ensure_fully_specified(location)
         items = self.collection.find({'definition.children': location.url()},
                                      {'_id': True})
-        return [i['_id'] for i in items]
+        return [Location(i['_id']) for i in items]
 
     def get_modulestore_type(self, course_id):
         """
