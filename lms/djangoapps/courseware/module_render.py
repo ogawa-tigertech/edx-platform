@@ -368,7 +368,7 @@ def get_module_for_descriptor_internal(user, descriptor, field_data_cache, cours
         reverse('jump_to_id', kwargs={'course_id': course_id, 'module_id': ''}),
     ))
 
-    if settings.FEATURES.get('DISPLAY_HISTOGRAMS_TO_STAFF'):
+    if settings.FEATURES.get('DISPLAY_DEBUG_INFO_TO_STAFF'):
         if has_access(user, descriptor, 'staff', course_id):
             block_wrappers.append(partial(add_histogram, user))
 
