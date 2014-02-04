@@ -1,0 +1,156 @@
+// xblocks - default styling
+// ==========================
+
+// UI: xblock wrapper
+.xblock-wrapper {
+  border: 1px solid $gray-l4;
+  margin: ($baseline/2);
+  border-radius: ($baseline/5);
+  background: $white;
+  box-shadow: 0px 1px 1px $shadow-l1;
+
+  //TODO - account for z-index issues that may steam from video player once container page is editable.
+
+  &:hover {
+    @include transition(all $tmg-f2 linear 0s);
+    box-shadow: 0px 0px 1px $shadow;
+  }
+
+  // UI: xblock header
+  .xblock-header {
+    line-height: ($baseline*2.5);
+    padding: 0px 0px 0px ($baseline*.75);
+    border-bottom: 1px solid $gray-l4;
+    border-radius: ($baseline/5);
+    border-radius: ($baseline/5) ($baseline/5) 0px 0px;
+    background-color: $blue-l5;
+
+    .header-details {
+      display: inline-block;
+      width: 60%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .header-actions {
+      display: inline-block;
+      width: 38%;
+      text-align: right;
+    }
+  }
+
+  .xblock-render {
+    @extend %anim-fadeIn;
+  }
+}
+// ====================
+
+// xblocks - calls-to-action
+
+// ====================
+
+// UI: general actions list
+.xblock-wrapper {
+
+  .actions-list {
+    display: inline-block;
+    margin-bottom: 0px;
+  }
+
+  .action-item {
+    display: inline-block;
+
+    .action-button {
+      @include transition(all $tmg-f2 ease-in-out 0s);
+      padding: ($baseline/4) ($baseline/2);
+      width: auto;
+      height: ($baseline*1.5);
+      border-radius: 3px;
+      color: $gray-l1;
+      min-width: ($baseline*.75);
+
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+
+      // TODO - determine outline.scss's use of this property.
+      &.is-set {
+        visibility: visible;
+      }
+
+      .action-button-text {
+        padding-left: 1px;
+        text-transform: uppercase;
+      }
+
+      &.delete-button:hover {
+        background-color: $gray-l1;
+      }
+
+      // TODO - determine outline.scss's use of this property.
+      //reset old drag handle style
+      &.drag-handle {
+        float: none;
+        margin: 0px;
+        background: transparent url(../img/drag-handles.png) right 5px no-repeat;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// ====================
+
+// UI: xblock drag and drop
+
+// TODO: current read only version of container page does not support drag and drop, extend from _controls.scss
+.xblock-wrapper.is-draggable{
+}
+
+// ====================
+
+// UI: xblock is expandable and collapsible
+
+// TODO: instead of duplicating similar styling on both _outline.scss and _xblocks.scss, a general is-collapsible class should exist in controls.scss
+
+.xblock-wrapper.is-collapsible {
+
+  .expand-collapse {
+    @include transition(all $tmg-f2 linear 0s);
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px ($baseline/4);
+    color: $gray-l2;
+
+    &:hover {
+      color: $blue;
+    }
+
+    .ui-toggle-expansion {
+      @include transition(all $tmg-f2 ease-in-out 0s);
+      @include font-size(18);
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: ($baseline/4);
+      color: $gray-l3;
+    }
+
+    &.expand .ui-toggle-expansion {
+      @include transform(rotate(-90deg));
+      @include transform-origin(50% 50%);
+    }
+  }
+
+  &.collapsed .xblock-render {
+    display: none !important;
+  }
+
+  .action-view {
+
+    .action-button-text {
+      padding-left: 0px;
+      padding-right: $baseline/5;
+    }
+  }
+}

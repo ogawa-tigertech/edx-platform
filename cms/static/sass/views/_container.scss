@@ -1,7 +1,139 @@
-// studio - views - unit
+// container - content
+// ==========================
+// The container view renders xblocks three levels deep: Page Level, Nesting Level, and Element Level.
+
+// For containers rendered at the element level, the container is rendered in a way that allows the user to navigate to a separate container page for that container making its children populat the nesting and element levels.
+
+// Container Page View Styling
+body.view-container {
+
+  .mast {
+    border-bottom: none;
+    padding-bottom: 0px;
+  }
+
+  .content-primary {
+    float: left;
+    clear: both;
+    width: 70%;
+  }
+
+  .content-supplementary {
+    float: right;
+    padding: $baseline;
+    width: 28%;
+
+    label {
+      @extend %t-title8;
+    }
+  }
+}
+
+// xBlock Page Level Styling
+body.view-container {
+  .xblock-wrapper-pagelevel {
+    margin: 0px;
+
+    .xblock-header {
+      display: none;
+
+      .xblock-details {
+        font-size: 1.1em;
+      }
+    }
+
+    .xblock-render {
+      background: none;
+    }
+
+    .xblock-list { }
+
+    .xblock-listitem { }
+  }
+
+  // xBlock Nesting Level Styling
+  .xblock-wrapper-nestinglevel {
+    margin: ($baseline/2);
+    border: none;
+    padding-bottom: ($baseline/2);
+    min-height: ($baseline*6);
+    box-shadow: none;
+
+    &:hover {
+      background-color: $shadow-l3;
+      box-shadow: 0 0 1px $shadow-d2 inset;
+    }
+
+    .xblock-header {
+      display: block;
+      margin-bottom: ($baseline/2);
+      border-bottom: none;
+      background: none;
+      box-shadow: none;
+
+      .xblock-details {
+        font-size: 1em;
+      }
+    }
+
+    .xblock-render { }
+
+    .xblock-list { }
+
+    .xblock-listitem { }
+  }
+
+  // xBlock Element Level Styling
+  .xblock-wrapper-elementlevel {
+    margin: 0px ($baseline*2) $baseline ($baseline*2);
+    border-radius: $baseline/4;
+    background-color: $white;
+    box-shadow: none;
+
+    &:hover {
+      @include transition(all $tmg-f2 linear 0s);
+      border-color: $blue;
+      box-shadow: 0px 0px 1px $shadow;
+
+    }
+
+    // this & styling section duplicated on unit page to enable linking to (initially) read-only container views
+    &.xblock-type-container {
+
+      .xblock-header {
+        margin-bottom: 0px;
+        border-bottom: 0px;
+        border-radius: ($baseline/5);
+
+        .xblock-details {
+          font-size: .9em;
+        }
+      }
+
+      .xblock-render {
+        display: none;
+      }
+    }
+
+    .xblock-header {
+      margin-bottom: 0px;
+      border-bottom: 1px solid $gray-l4;
+      background-color: $gray-l6;
+      font-weight: 300;
+      font-size: .9em;
+    }
+
+    .xblock-render {
+    }
+  }
+}
+
 // ====================
 
-body.course.unit,.view-unit {
+// Unit Page Styling
+// The remainder of this document is legacy styling carried over from _unit.scss, which _container.scss and _xblock.scss were based on. Until testing has been completed for all container rendering using this legacy styling, it will be left below. As styling is migrated up into the area above, it will be removed from this section. (#TODO)
+
+body.course.container,.view-container {
 
   .main-wrapper {
     margin-top: ($baseline*2);
@@ -13,100 +145,40 @@ body.course.unit,.view-unit {
   }
   //end problem selector reqs
 
-  .main-column {
-    clear: both;
-    float: left;
-    width: 70%;
-  }
 
-  .unit-body.published {
-    .components > li {
-      border: none;
-
-      .rendered-component {
-        padding: 0 $baseline;
-      }
-    }
-  }
-
-  .unit-body {
-
-    .unit-name-input {
-      padding: $baseline 2*$baseline;
-
-      label {
-        display: block;
-      }
-
-      input {
-        width: 100%;
-        font-size: 20px;
-      }
-    }
-
-    .breadcrumbs {
-      border-radius: 3px 3px 0 0;
-      border-bottom: 1px solid #cbd1db;
-      @include linear-gradient(top, rgba(255, 255, 255, .3), rgba(255, 255, 255, 0) 70%);
-      background-color: #edf1f5;
-      box-shadow: 0 1px 0 rgba(255, 255, 255, .7) inset;
-      @include clearfix;
-
-      li {
-        float: left;
-      }
-
-      a,
-      .current-page {
-        display: block;
-        padding: 15px 35px 15px 30px;
-        font-size: 14px;
-        background: url(../img/breadcrumb-arrow.png) no-repeat right center;
-      }
-    }
+  .content-primary {
 
     h2 {
-      margin: 30px 40px 30px 0;
+      margin: 30px 40px 30px 0px;
       color: #646464;
-      font-size: 19px;
-      font-weight: 300;
-      letter-spacing: 1px;
       text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 300;
+      font-size: 19px;
     }
+
     // ====================
 
     // Component List Meta
     .components {
 
       > li {
-        position: relative;
-        z-index: 10;
-        margin: $baseline 2*$baseline;
-
-        .title {
-          margin: 0 0 15px 0;
-          color: $mediumGrey;
-
-          .value {
-          }
-        }
 
         // ====================
-
         // New Components
         &.new-component-item {
           margin: $baseline 0px;
-          border-top: 1px solid $mediumGrey;
-          box-shadow: 0 2px 1px rgba(182, 182, 182, 0.75) inset;
-          background-color: $lightGrey;
           margin-bottom: 0px;
+          border-top: 1px solid $mediumGrey;
           padding-bottom: $baseline;
+          background-color: $lightGrey;
+          box-shadow: 0 2px 1px rgba(182, 182, 182, 0.75) inset;
 
           .new-component-button {
             display: block;
             padding: $baseline;
-            text-align: center;
             color: #edf1f5;
+            text-align: center;
           }
 
           h5 {
@@ -118,8 +190,8 @@ body.course.unit,.view-unit {
 
           .rendered-component {
             display: none;
+            border-radius: 3px 3px 0px 0px;
             background: #fff;
-            border-radius: 3px 3px 0 0;
           }
 
           .new-component-type {
@@ -130,42 +202,42 @@ body.course.unit,.view-unit {
             }
 
             a {
-              border: 1px solid $mediumGrey;
-              width: 100px;
-              height: 100px;
-              color: #fff;
               margin-right: 15px;
               margin-bottom: $baseline;
+              border: 1px solid $mediumGrey;
               border-radius: 8px;
+              width: 100px;
+              height: 100px;
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 1px 0 rgba(255, 255, 255, .4) inset;
+              color: #fff;
+              text-align: center;
               font-size: 15px;
               line-height: 14px;
-              text-align: center;
-              box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 1px 0 rgba(255, 255, 255, .4) inset;
 
               .name {
+                @include box-sizing(border-box);
                 position: absolute;
                 bottom: 5px;
-                left: 0;
-                width: 100%;
+                left: 0px;
                 padding: $baseline/2;
-                @include box-sizing(border-box);
+                width: 100%;
                 color: #fff;
               }
             }
           }
 
           .new-component-templates {
+            @include clearfix;
             display: none;
             margin: $baseline 2*$baseline;
-            border-radius: 3px;
             border: 1px solid $mediumGrey;
+            border-radius: 3px;
             background-color: #fff;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 1px 0 rgba(255, 255, 255, .4) inset;
-            @include clearfix;
 
             .cancel-button {
-              margin: $baseline 0px $baseline/2 $baseline/2;
               @include white-button;
+              margin: $baseline 0px $baseline/2 $baseline/2;
             }
 
             .problem-type-tabs {
@@ -203,35 +275,35 @@ body.course.unit,.view-unit {
           }
 
           .problem-type-tabs {
-            list-style-type: none;
+            @include linear-gradient(top, rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
             border-radius: 0;
             width: 100%;
-            @include linear-gradient(top, rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
             background-color: $lightBluishGrey;
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+            list-style-type: none;
 
             li:first-child {
               margin-left: $baseline;
             }
 
             li {
-              float:left;
-              display:inline-block;
-              text-align:center;
-              width: auto;
               @include linear-gradient(top, rgba(255, 255, 255, .4), rgba(255, 255, 255, 0));
+              display:inline-block;
+              float:left;
+              width: auto;
               background-color: tint($lightBluishGrey, 10%);
               box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+              text-align:center;
               opacity: 0.8;
 
               &:hover {
-                opacity: 0.9;
                 background-color: tint($lightBluishGrey, 20%);
+                opacity: 0.9;
               }
 
               &.ui-state-active {
-                border: 0px;
                 @include active;
+                border: 0px;
                 opacity: 1.0;
               }
             }
@@ -239,11 +311,11 @@ body.course.unit,.view-unit {
             a {
               display: block;
               padding: 15px 25px;
+              color: #3c3c3c;
+              text-align: center;
+              text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
               font-size: 15px;
               line-height: 16px;
-              text-align: center;
-              color: #3c3c3c;
-              text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
             }
           }
 
@@ -251,8 +323,8 @@ body.course.unit,.view-unit {
 
             a {
               @include transition(none);
-              background: #fff;
               border: 0px;
+              background: #fff;
               color: #3c3c3c;
 
               &:hover {
@@ -283,8 +355,8 @@ body.course.unit,.view-unit {
             a {
               @include clearfix();
               display: block;
-              padding: 7px $baseline;
               border-bottom: none;
+              padding: 7px $baseline;
               font-weight: 500;
 
               .name {
@@ -292,21 +364,21 @@ body.course.unit,.view-unit {
 
                 [class^="icon-"] {
                   @include transition(opacity $tmg-f2 linear 0s);
-                  display: inline-block;
                   top: 1px;
+                  display: inline-block;
                   margin-right: 5px;
-                  opacity: 0.5;
                   width: 17;
                   height: 21px;
                   vertical-align: middle;
+                  opacity: 0.5;
                 }
               }
 
               .editor-indicator {
                 @include transition(opacity $tmg-f2 linear 0s);
-                float: right;
                 position: relative;
                 top: 3px;
+                float: right;
                 font-size: 12px;
                 opacity: 0.3;
               }
@@ -332,10 +404,10 @@ body.course.unit,.view-unit {
             .empty {
 
               a {
-                line-height: 1.4;
-                font-weight: 400;
                 background: #fff;
                 color: #3c3c3c;
+                font-weight: 400;
+                line-height: 1.4;
 
 
                 &:hover {
@@ -358,8 +430,8 @@ body.course.unit,.view-unit {
 
       .wrapper-alert-error {
           margin-top: ($baseline*1.25);
-          box-shadow: none;
           border-top: 5px solid $red-l1;
+          box-shadow: none;
 
           .copy,
           .title {
@@ -376,23 +448,23 @@ body.course.unit,.view-unit {
 
     // Component Drag and Drop, Non-Edit Module Rendering, Styling
     .component {
+      @include transition(none);
       border: 1px solid $lightBluishGrey2;
       border-radius: 3px;
       background: #fff;
-      @include transition(none);
 
       &:hover {
         border-color: #6696d7;
 
         .drag-handle {
-          background-color: $blue;
           border-color: $blue;
+          background-color: $blue;
         }
       }
 
       &.editing {
-        border: 1px solid $lightBluishGrey2;
         z-index: auto;
+        border: 1px solid $lightBluishGrey2;
 
         .drag-handle,
         .component-actions {
@@ -405,59 +477,24 @@ body.course.unit,.view-unit {
       }
 
       .drag-handle {
+        @include transition(none);
         position: absolute;
-        display: block;
         top: -1px;
         right: -16px;
         z-index: 10;
+        display: block;
+        border: 1px solid $lightBluishGrey2;
+        border-radius: 0 3px 3px 0;
         width: 15px;
         height: 100%;
-        border-radius: 0 3px 3px 0;
-        border: 1px solid $lightBluishGrey2;
         background: url(../img/white-drag-handles.png) center no-repeat $lightBluishGrey2;
         cursor: move;
-        @include transition(none);
-      }
-    }
-
-    .xblock-student_view {
-      padding: 2*$baseline $baseline $baseline;
-      overflow-x: auto;
-
-      h1 {
-        float: none;
-        margin-left: 0;
-      }
-    }
-
-    // UI: DnD - specific elems/cases - unit
-    .courseware-unit {
-
-      // STATE: was dropped
-      &.was-dropped {
-
-        > .section-item {
-          background-color: $ui-update-color !important; // nasty, but needed for specificity
-        }
-      }
-    }
-
-    // Special xBlock and xModule styling
-    .xblock-type-container {
-
-      .xblock-header-elementlevel {
-        line-height: $baseline*2;
-        min-height: $baseline*2;
-      }
-
-      .xblock-render-elementlevel {
-        display: none;
       }
     }
 
     .xmodule_display {
-      padding: 2*$baseline $baseline $baseline;
       overflow-x: auto;
+      padding: 2*$baseline $baseline $baseline;
 
       h1 {
         float: none;
@@ -481,22 +518,22 @@ body.course.unit,.view-unit {
 
     // Component Editing
     .wrapper-component-editor {
-      z-index: 9999;
       position: relative;
+      z-index: 9999;
       background: $white;
     }
 
     .component-editor {
       @include edit-box;
-      box-shadow: none;
       display: none;
-      padding: 0;
       border-radius: 2px 2px 0 0;
+      padding: 0;
+      box-shadow: none;
 
       h3 {
         margin-bottom: $baseline/2;
-        font-size: 18px;
         font-weight: 700;
+        font-size: 18px;
       }
 
       h5 {
@@ -511,15 +548,15 @@ body.course.unit,.view-unit {
 
       // Module Actions, also used for Static Pages
       .module-actions {
-        box-shadow: inset 0 1px 2px $shadow;
         border-top: 1px solid $gray-l1;
         padding: ($baseline*0.75) $baseline;
         background: $gray-l6;
+        box-shadow: inset 0 1px 2px $shadow;
 
         .action {
           display: inline-block;
-          vertical-align: middle;
           margin-right: ($baseline/4);
+          vertical-align: middle;
 
           &:last-child {
             margin-right: 0;
@@ -532,8 +569,8 @@ body.course.unit,.view-unit {
           @include transition(all .15s);
           display: inline-block;
           padding: ($baseline/5) $baseline;
-          font-weight: 600;
           text-transform: uppercase;
+          font-weight: 600;
         }
 
         .action-secondary {
@@ -542,8 +579,8 @@ body.course.unit,.view-unit {
           @include transition(all .15s);
           display: inline-block;
           padding: ($baseline/5) $baseline;
-          font-weight: 600;
           text-transform: uppercase;
+          font-weight: 600;
         }
       }
     }
@@ -553,11 +590,11 @@ body.course.unit,.view-unit {
 // Edit Header (Component Name, Mode-Editor, Mode-Settings)
 .component-edit-header {
   @include box-sizing(border-box);
-  padding: 18px 0 18px $baseline;
   top: 0;
   right: 0;
-  background-color: $blue;
   border-bottom: 1px solid $blue-d2;
+  padding: 18px 0 18px $baseline;
+  background-color: $blue;
   color: $white;
 
   //Component Name
@@ -570,18 +607,18 @@ body.course.unit,.view-unit {
     em {
       display: inline-block;
       margin-right: ($baseline/4);
-      font-weight: 400;
       color: $white;
+      font-weight: 400;
     }
   }
 
   //Nav-Edit Modes
   .nav-edit-modes {
-    list-style: none;
-    right: 0;
-    top: 0;
     position: absolute;
+    top: 0;
+    right: 0;
     padding: 12px ($baseline*0.75);
+    list-style: none;
 
     .mode {
       display: inline-block;
@@ -597,9 +634,9 @@ body.course.unit,.view-unit {
 
         &.is-set {
           @include linear-gradient($blue, $blue);
-          color: $blue-d1;
-          box-shadow: inset 0 1px 2px 1px $shadow-l1;
           background-color: $blue-d4;
+          box-shadow: inset 0 1px 2px 1px $shadow-l1;
+          color: $blue-d1;
           cursor: default;
 
           &:hover {
@@ -632,32 +669,31 @@ body.course.unit,.view-unit {
 
   //settings-list
   .list-input.settings-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
 
     overflow: auto;
+    margin: 0;
+    padding: 0;
     max-height: 400px;
+    list-style: none;
 
     //chrome scrollbar visibility correction
     &::-webkit-scrollbar {
-      -webkit-appearance: none;
       width: 11px;
       height: 11px;
+      -webkit-appearance: none;
     }
 
     &::-webkit-scrollbar-thumb {
-      border-radius: 8px;
       border: 2px solid $gray-l2;
+      border-radius: 8px;
       background-color: rgba(0, 0, 0, .5);
     }
 
     //component-setting-entry
     .field.comp-setting-entry {
-      @include transition(opacity $tmg-f2 ease-in-out 0s);
-      background-color: $white;
-      padding: $baseline;
       border-bottom: 1px solid $gray-l2;
+      padding: $baseline;
+      background-color: $white;
       opacity: 0.7;
 
       &:last-child {
@@ -676,12 +712,13 @@ body.course.unit,.view-unit {
       }
 
       &:hover {
+        @include transition(opacity $tmg-f2 ease-in-out 0s);
         opacity: 1.0;
       }
 
       &.is-set {
-        opacity: 1.0;
         background-color: $white;
+        opacity: 1.0;
 
         .setting-input {
           color: $blue-l1;
@@ -689,23 +726,25 @@ body.course.unit,.view-unit {
       }
 
       .wrapper-comp-setting {
-        min-width: 300px;
-        top: 0;
-        vertical-align: top;
-        margin-bottom:5px;
         position: relative;
+        top: 0;
+        display: inline-block;
+        margin-bottom:5px;
+        min-width: 300px;
+        width: 55%;
+        vertical-align: top;
       }
 
       .setting-label {
         @extend %t-copy-sub1;
         @include transition(color $tmg-f2 ease-in-out 0s);
-        vertical-align: middle;
-        display: inline-block;
         position: relative;
         left: 0;
-        width: 25%;
-        min-width: 100px;
+        display: inline-block;
         margin-right: ($baseline/2);
+        min-width: 100px;
+        width: 33%;
+        vertical-align: middle;
         font-weight: 600;
 
         &.is-focused {
@@ -717,9 +756,7 @@ body.course.unit,.view-unit {
         @include placeholder($gray-l4);
         @include font-size(16);
         @include size(100%,100%);
-        padding: ($baseline/2);
-        min-width: 100px;
-        width: 45%;
+        border: 1px solid $gray-l2;
 
         //&.long {
           //
@@ -737,7 +774,9 @@ body.course.unit,.view-unit {
         //    color: $gray;
         //  }
         border-radius: 3px;
-        border: 1px solid $gray-l2;
+        padding: ($baseline/2);
+        min-width: 100px;
+        width: 45%;
         text-overflow: ellipsis;
       }
 
@@ -765,9 +804,9 @@ body.course.unit,.view-unit {
         //box-shadow: 0 1px 2px $shadow-l1 inset;
 
         &:focus {
-          box-shadow: 0 0 1px $shadow;
           @include transition(opacity $tmg-f2 ease-in-out 0s);
           background-color: $yellow;
+          box-shadow: 0 0 1px $shadow;
         }
 
         &:active {
@@ -777,23 +816,23 @@ body.course.unit,.view-unit {
 
       .action.setting-clear {
         @include font-size(11);
-        color: $gray;
+        margin: 0 $baseline/2;
+        border: 1px solid $gray-l1;
+        border-radius: 50%;
+        padding: 5px;
         width: 25px;
         height: 25px;
-        vertical-align: middle;
-        padding: 5px;
-        border-radius: 50%;
-        margin: 0 $baseline/2;
-        box-shadow: none;
-        text-shadow: none;
-        border: 1px solid $gray-l1;
         background-color: $gray-l4;
+        box-shadow: none;
+        color: $gray;
+        vertical-align: middle;
+        text-shadow: none;
 
         &:hover {
-          box-shadow: 0 1px 1px $shadow;
           @include transition(opacity $tmg-f2 ease-in-out 0s);
-          background-color: $blue-s3;
           border: 1px solid $blue-s3;
+          background-color: $blue-s3;
+          box-shadow: 0 1px 1px $shadow;
           color: $white;
         }
 
@@ -805,9 +844,10 @@ body.course.unit,.view-unit {
       .setting-help {
         @include font-size(12);
         display: inline-block;
-        font-color: $gray-l6;
         min-width: ($baseline*10);
+        width: 35%;
         vertical-align: top;
+        font-color: $gray-l6;
       }
 
 
@@ -821,8 +861,8 @@ body.course.unit,.view-unit {
 
         // label
         .setting-label {
-          vertical-align: top;
           margin-top: ($baseline/2);
+          vertical-align: top;
         }
 
         // inputs and labels
@@ -841,8 +881,8 @@ body.course.unit,.view-unit {
 
             // inputs
             .input {
-              width: 80%;
               margin-right: ($baseline/2);
+              width: 80%;
               vertical-align: middle;
             }
           }
@@ -854,101 +894,25 @@ body.course.unit,.view-unit {
         }
 
         .setting-clear {
-          vertical-align: top;
           margin-top: ($baseline/4);
-        }
-
-        .create-setting {
-          @extend %ui-btn-flat-outline;
-          @extend %t-action3;
-          display: block;
-          width: 100%;
-          padding: ($baseline/2);
-          font-weight: 600;
-
-          *[class^="icon-"] {
-            margin-right: ($baseline/4);
-          }
-
-          // STATE: disabled
-          &.is-disabled {
-
-          }
-        }
-
-        .remove-setting {
-          @include transition(color 0.25s ease-in-out);
-          @include font-size(20);
-          display: inline-block;
-          background: transparent;
-          color: $blue-l3;
-
-          &:hover {
-            color: $blue;
-          }
-
-          // STATE: disabled
-          &.is-disabled {
-
-          }
-        }
-      }
-
-      // TYPE: Dict
-      .metadata-dict {
-        * {
-          @include box-sizing(border-box);
-        }
-
-        // label
-        .setting-label {
-            vertical-align: top;
-            margin-top: ($baseline*.75);
-        }
-
-        // inputs and labels
-        .wrapper-dict-settings {
-          width: 55%;
-          display: inline-block;
-          min-width: 240px;
-
-          // enumerated fields
-          .list-settings {
-            margin: ($baseline/2) 0 0;
-
-            .list-settings-item {
-              margin-bottom: ($baseline/2);
-            }
-
-            // inputs
-            .input {
-              width: 43%;
-              margin-right: ($baseline/4);
-              vertical-align: middle;
-              display: inline-block;
-
-              &.input-value {
-                margin-right: ($baseline/2);
-              }
-            }
-          }
-        }
-
-        .setting-clear {
           vertical-align: top;
-          margin: ($baseline*.75) 0 0 0;
         }
 
         .create-setting {
           @extend %ui-btn-flat-outline;
           @extend %t-action3;
           display: block;
-          width: 88%;
           padding: ($baseline/2);
+          width: 100%;
           font-weight: 600;
 
           *[class^="icon-"] {
             margin-right: ($baseline/4);
+          }
+
+          // STATE: disabled
+          &.is-disabled {
+
           }
         }
 
@@ -962,114 +926,21 @@ body.course.unit,.view-unit {
           &:hover {
             color: $blue;
           }
+
+          // STATE: disabled
+          &.is-disabled {
+
+          }
         }
       }
     }
   }
 }
-// ====================
 
-// Editing Units from Courseware
-//uses similar styling as static-pages.scss
-body.unit {
-
-  .component {
-    padding-top: 30px;
-
-
-    .wrapper-component-action-header {
-      @include box-sizing(border-box);
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: $baseline/4 $baseline/2;
-      width: 100%;
-      border-bottom: 1px solid $gray-l4;
-      background-color: $gray-l6;
-    }
-
-    .component-header {
-      display: inline-block;
-      overflow: hidden;
-      padding: $baseline/2 0px 0px $baseline/4;
-      max-width: 60%;
-      color: $gray-l1;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-weight: 300;
-    }
-
-    .component-actions {
-      display: inline-block;
-      float: right;
-      max-width: 40%;
-      vertical-align: middle;
-      text-align: center;
-    }
-
-    &.editing {
-      padding-top: 0;
-    }
-  }
-}
-
-// ====================
-
-// Component Header Actions
-// uses similar styling as assets.scss, static-pages.scss
-
-body.unit {
-
-  .component-actions {
-
-    .action-item {
-      display: inline-block;
-      margin: ($baseline/4) 0 ($baseline/4) ($baseline/4);
-
-      .action-button {
-        @include transition(all $tmg-f2 ease-in-out 0s);
-        display: block;
-        padding: 0 $baseline/2;
-        width: auto;
-        height: ($baseline*1.5);
-        border-radius: 3px;
-        color: $gray-l1;
-
-        &:hover {
-          background-color: $blue;
-          color: $gray-l6;
-        }
-
-        .action-button-text {
-          padding-left: 1px;
-          vertical-align: bottom;
-          text-transform: uppercase;
-          line-height: 17px;
-        }
-
-        &.delete-button:hover {
-          background-color: $gray-l1;
-        }
-      }
-
-      [class^="icon-"] {
-        display: inline-block;
-        vertical-align: bottom;
-      }
-    }
-  }
-}
 
 // ====================
 
 // Unit Page Sidebar
-
-.sidebar {
-
-  label {
-    @extend %t-title8;
-  }
-}
 
 .unit-settings {
 
@@ -1084,9 +955,9 @@ body.unit {
 
   .published-alert {
     display: none;
-    padding: $baseline/2;
     border: 1px solid #edbd3c;
     border-radius: 3px;
+    padding: $baseline/2;
     background: #fbf6e1;
     font-size: 14px;
     line-height: 1.4;
@@ -1131,181 +1002,12 @@ body.unit {
   .preview-button,
   .publish-button,
   .view-button {
-    font-size: 11px;
     margin-top: $baseline/2;
     padding: 6px 15px 8px;
+    font-size: 11px;
   }
 }
 
-.unit-history {
-  &.collapsed {
-    h4 {
-      border-bottom: none;
-      border-radius: 3px;
-    }
-
-    .window-contents {
-      display: none;
-    }
-  }
-
-  ol {
-    border: 1px solid #ced2db;
-
-    li {
-      display: block;
-      padding: 6px 8px 8px $baseline/2;
-      background: #edf1f5;
-      font-size: 12px;
-
-      &:hover {
-        background: #fffcf1;
-
-        .item-actions {
-          display: block;
-        }
-      }
-
-      &.checked {
-        background: #d1dae3;
-      }
-
-      .item-actions {
-        display: none;
-      }
-
-      input[type="radio"] {
-        margin-right: 7px;
-      }
-    }
-  }
-}
-
-.unit-location {
-
-  // unit id
-  .wrapper-unit-id {
-
-    .unit-id {
-
-      .label {
-        @extend %t-title7;
-        margin-bottom: ($baseline/4);
-        color: $gray-d1;
-      }
-
-      .value {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  .url {
-    box-shadow: none;
-    width: 100%;
-    margin-bottom: $baseline/2;
-  }
-
-  .draft-tag,
-  .hidden-tag,
-  .private-tag,
-  .has-new-draft-tag {
-    font-size: 8px;
-  }
-
-  .unit-tree-location {
-
-    .section-name {
-      @extend %t-title8;
-    }
-
-
-    .subsection,
-    .courseware-unit {
-      margin: ($baseline/4) 0 0 ($baseline);
-    }
-
-    .courseware-unit .section-item {
-      background-color: transparent;
-    }
-
-    .section-item {
-      @include transition(background $tmg-avg ease-in-out 0);
-      @include box-sizing(border-box);
-      @extend %t-copy-sub2;
-      display: inline-block;
-      width: 100%;
-      background: $gray-l5;
-      padding: 6px 8px 8px 16px;
-      vertical-align: top;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      color: $gray;
-
-      &:hover {
-        background: $blue-l5;
-        color: $blue;
-      }
-
-      &.editing {
-        background-color: $orange-l3;
-      }
-
-      .public-item {
-        color: $black;
-      }
-
-      .private-item {
-        color: $gray-l1;
-      }
-
-      .draft-item {
-        color: $yellow-d1;
-      }
-
-      .public-item:hover,
-      .private-item:hover,
-      .draft-item:hover {
-        color: $blue;
-      }
-
-      .draft-item:after,
-      .public-item:after,
-      .private-item:after {
-        @include font-size(9);
-        margin-left: 3px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-
-      .draft-item:after {
-        content: "- draft";
-      }
-
-      .private-item:after {
-        content: "- private";
-      }
-    }
-
-    .new-unit-item {
-      @extend %ui-btn-flat-outline;
-      @extend %t-action4;
-      width: 90%;
-      margin: 0 0 ($baseline/2) ($baseline/4);
-      border: 1px solid transparent;
-      padding: ($baseline/4) ($baseline/2);
-      font-weight: normal;
-      color: $gray-l2;
-      text-align: left;
-
-      &:hover {
-        box-shadow: none;
-        background-image: none;
-      }
-    }
-  }
-}
 
 .edit-state-draft {
   .visibility,
@@ -1352,9 +1054,9 @@ body.unit {
 
 // Latex Compiler
 .launch-latex-compiler {
-  background-color: $white;
-  padding: $baseline/2 0 $baseline/2 $baseline;
   border-bottom: 1px solid $gray-l2;
+  padding: $baseline/2 0 $baseline/2 $baseline;
+  background-color: $white;
   opacity: 0.8;
 
 
