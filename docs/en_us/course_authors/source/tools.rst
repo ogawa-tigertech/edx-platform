@@ -389,4 +389,6 @@ Create an Image Modal
      <img alt="Sample Image Modal" src="/static/Image1.jpg"/>
      </a>
 
+   .. note:: You can use this same HTML code in any HTML component, not just those components you created as image modals.
+
 #. Click **Save** to save the HTML component.
