@@ -18,6 +18,7 @@ to add customized learning tools such as word clouds to your course.
   response to a question - into a colorful graphic that students can see.
 - :ref:`Zooming image`: Zooming images allow you to enlarge sections of an image so
   that students can see the section in detail.
+- :ref:`Image Modal`: The Image Model tool allows a student to enlarge an image in the whole browser window. This is useful when the image contains a large amount of detail and text that is easier to view in context when enlarged.
 
 
 .. _LTI Component:
@@ -330,20 +331,62 @@ Create a Zooming Image Tool
 
 #. Click **Save** to save the HTML component.
 
+.. _Image Modal:
+
+******************
+Image Modal
+******************
+
+Some large images are difficult for students to view in the courseware.  The image modal tool allows students to enlarge the image, so they can see all the detail in context.
+
+The Student View of an Image Modal
+-----------------------------------
+The student sees the image modal in a unit page. When the student hovers the mouse pointer over the image, the **FULL SCREEN** button is shown:
+
+.. image:: Images/image-modal.png
+ :alt: Image the the Image Modal tool with the Full Screen button.
+
+When the student clicks **FULL SCREEN**, the image opens and expands in the full browser window.  The buttons **Close**, **Zoom In**, and **Zoom Out** are shown:
+
+.. image:: Images/image-modal-window.png
+ :alt: Image the the Image Modal tool with the Full Screen button.
+
+The student can then zoom in on the image, and drag the image to view the desired part of it:
+
+.. image:: Images/image-modeal-zoomed.png
+ :alt: Image the the Image Modal tool with the Full Screen button.
 
 
+Create an Image Modal
+---------------------------
 
+#. Upload your image file to the **Files & Uploads** page. For more information about how to do this, see :ref:`Add Files to a Course`.
 
+#. Under **Add New Component**, click **html**, and then click **Image Modal**.
 
+#. In the new component that appears, click **Edit**.
 
+#. In the component editor, replace the default title, and add text as needed.
 
+#. Switch to the **HTML** tab.
 
+#. Replace the following placeholders with your own content.
 
+   * Replace the value of the <a> element's href attribute with the path to your image. Do not change the value of the class attribute. For example:
 
+     **<a href="/static/Image1.jpg" class="modal-content">**
 
+   * Replace the value of the <img> element's src attribute with the path to your image. For example:
+     
+     **<img alt="Sample Image Modal" src="/static/Image1.jpg"/>**
 
+   * Ensure that the value of the href and src attributes are the same, and that you do not change the class attribute. You sample code should look like the following:
 
+   .. code-block:: xml
 
+     <h2>Sample Image Modal</h2>
+     <a href="/static/Image1.jpg" class="modal-content">
+     <img alt="Sample Image Modal" src="/static/Image1.jpg"/>
+     </a>
 
-
-
+#. Click **Save** to save the HTML component.
