@@ -2,7 +2,6 @@
 Asset compilation and collection.
 """
 import argparse
-import glob
 from paver.easy import *
 from .utils.envs import Env
 from .utils.cmd import cmd, django_cmd

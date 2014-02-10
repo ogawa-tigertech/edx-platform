@@ -7,6 +7,10 @@ from paver.easy import *
 from .utils.envs import Env
 
 
+MIGRATION_MARKER_DIR = Env.REPO_ROOT / '.ws_migrations_complete'
+MIGRATION_DIR = Env.REPO_ROOT / 'ws_migrations'
+
+
 @task
 def workspace_migrate():
     """
@@ -14,9 +18,6 @@ def workspace_migrate():
     """
     if os.getenv('SKIP_WS_MIGRATIONS', False):
         return
-
-    MIGRATION_MARKER_DIR = Env.REPO_ROOT / '.ws_migrations_complete'
-    MIGRATION_DIR = Env.REPO_ROOT / 'ws_migrations'
 
     files = os.listdir(MIGRATION_DIR)
     migration_files = []

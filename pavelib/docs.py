@@ -1,6 +1,5 @@
 import sys
 from paver.easy import *
-from .utils.envs import Env
 
 
 DOC_PATHS = {
