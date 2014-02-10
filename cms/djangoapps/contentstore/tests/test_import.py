@@ -130,9 +130,9 @@ class ContentStoreImportTest(ModuleStoreTestCase):
         self.assertIn('/static/', handouts.data)
 
     def test_tab_name_imports_correctly(self):
-        module_store, content_store, course, course_location = self.load_test_import_course()
+        _module_store, _content_store, course, _course_location = self.load_test_import_course()
         print "course tabs = {0}".format(course.tabs)
-        self.assertEqual(course.tabs[2]['name'],'Syllabus')
+        self.assertEqual(course.tabs[2]['name'], 'Syllabus')
 
     def test_rewrite_reference_list(self):
         module_store = modulestore('direct')

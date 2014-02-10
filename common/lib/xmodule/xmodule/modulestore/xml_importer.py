@@ -457,7 +457,7 @@ def import_course_draft(
                     # aka sequential), so we have to replace the location.name
                     # with the XML filename that is part of the pack
                     fn, fileExtension = os.path.splitext(filename)
-                    descriptor.location = descriptor.location._replace(name=fn)
+                    descriptor.location = descriptor.location.replace(name=fn)
 
                     index = int(descriptor.xml_attributes['index_in_children_list'])
                     if index in drafts:
@@ -475,13 +475,13 @@ def import_course_draft(
             for descriptor in drafts[key]:
                 try:
                     def _import_module(module):
-                        module.location = module.location._replace(revision='draft')
+                        module.location = module.location.replace(revision='draft')
                         # make sure our parent has us in its list of children
                         # this is to make sure private only verticals show up
                         # in the list of children since they would have been
                         # filtered out from the non-draft store export
                         if module.location.category == 'vertical':
-                            non_draft_location = module.location._replace(revision=None)
+                            non_draft_location = module.location.replace(revision=None)
                             sequential_url = module.xml_attributes['parent_sequential_url']
                             index = int(module.xml_attributes['index_in_children_list'])
 
@@ -489,7 +489,7 @@ def import_course_draft(
 
                             # IMPORTANT: Be sure to update the sequential
                             # in the NEW namespace
-                            seq_location = seq_location._replace(
+                            seq_location = seq_location.replace(
                                 org=target_location_namespace.org,
                                 course=target_location_namespace.course
                             )
@@ -524,7 +524,7 @@ def remap_namespace(module, target_location_namespace):
     # This looks a bit wonky as we need to also change the 'name' of the
     # imported course to be what the caller passed in
     if module.location.category != 'course':
-        module.location = module.location._replace(
+        module.location = module.location.replace(
             tag=target_location_namespace.tag,
             org=target_location_namespace.org,
             course=target_location_namespace.course
@@ -533,7 +533,7 @@ def remap_namespace(module, target_location_namespace):
         #
         # module is a course module
         #
-        module.location = module.location._replace(
+        module.location = module.location.replace(
             tag=target_location_namespace.tag,
             org=target_location_namespace.org,
             course=target_location_namespace.course,
@@ -575,7 +575,7 @@ def remap_namespace(module, target_location_namespace):
         if original_location.tag == ref.tag and \
            original_location.org == ref.org and \
            original_location.course == ref.course:
-            new_ref = ref._replace(
+            new_ref = ref.replace(
                 tag=target_location_namespace.tag,
                 org=target_location_namespace.org,
                 course=target_location_namespace.course
