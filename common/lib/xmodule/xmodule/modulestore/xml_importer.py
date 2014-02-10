@@ -8,6 +8,7 @@ from xblock.fields import Scope
 
 from .xml import XMLModuleStore, ImportSystem, ParentTracker
 from xmodule.modulestore import Location
+from xblock.fields import Reference, ReferenceList
 from xmodule.contentstore.content import StaticContent
 from .inheritance import own_metadata
 from xmodule.errortracker import make_error_tracker
@@ -518,6 +519,8 @@ def remap_namespace(module, target_location_namespace):
     if target_location_namespace is None:
         return module
 
+    original_location = module.location
+
     # This looks a bit wonky as we need to also change the 'name' of the
     # imported course to be what the caller passed in
     if module.location.category != 'course':
@@ -527,7 +530,6 @@ def remap_namespace(module, target_location_namespace):
             course=target_location_namespace.course
         )
     else:
-        original_location = module.location
         #
         # module is a course module
         #
@@ -556,22 +558,40 @@ def remap_namespace(module, target_location_namespace):
 
         module.save()
 
-    # then remap children pointers since they too will be re-namespaced
+    all_fields = module.get_explicitly_set_fields_by_scope(Scope.content)
+    all_fields.update(module.get_explicitly_set_fields_by_scope(Scope.settings))
     if hasattr(module, 'children'):
-        children_locs = module.children
-        if children_locs is not None and children_locs != []:
-            new_locs = []
-            for child in children_locs:
-                child_loc = Location(child)
-                new_child_loc = child_loc._replace(
-                    tag=target_location_namespace.tag,
-                    org=target_location_namespace.org,
-                    course=target_location_namespace.course
-                )
+        all_fields['children'] = module.children
 
-                new_locs.append(new_child_loc.url())
+    def convert_ref(reference):
+        """
+        Convert a reference to the new namespace, but only
+        if the original namespace matched the original course.
 
-            module.children = new_locs
+        Otherwise, returns the input value.
+        """
+        new_ref = reference
+        ref = Location(reference)
+        if original_location.tag == ref.tag and \
+           original_location.org == ref.org and \
+           original_location.course == ref.course:
+            new_ref = ref._replace(
+                tag=target_location_namespace.tag,
+                org=target_location_namespace.org,
+                course=target_location_namespace.course
+            ).url()
+        return new_ref
+
+    for field in all_fields:
+        if isinstance(module.fields.get(field), Reference):
+            new_ref = convert_ref(getattr(module, field))
+            setattr(module, field, new_ref)
+            module.save()
+        elif isinstance(module.fields.get(field), ReferenceList):
+            references = getattr(module, field)
+            new_references = [convert_ref(reference) for reference in references]
+            setattr(module, field, new_references)
+            module.save()
 
     return module
 
