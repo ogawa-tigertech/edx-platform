@@ -19,7 +19,7 @@
                 %if len(co['feedback'])>2:
                     <div class="collapsible evaluation-response">
                         <header>
-                            <a href="#">${_("See full feedback")}</a>
+                            <a href="#" class="see-full-feedback">${_("See full feedback")}</a>
                         </header>
                         <section class="feedback-full">
                             ${co['feedback']}
@@ -33,7 +33,7 @@
                     <input type="hidden" value="${co['submission_id']}" class="submission_id" />
                     <div class="collapsible evaluation-response">
                         <header>
-                            <a href="#">${_("Respond to Feedback")}</a>
+                            <a href="#" class="respond-to-feedback">${_("Respond to Feedback")}</a>
                         </header>
                         <section id="evaluation" class="evaluation">
                             <p>${_("How accurate do you find this feedback?")}</p>

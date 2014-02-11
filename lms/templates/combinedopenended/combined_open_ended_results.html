@@ -25,7 +25,7 @@
                             % endif
                         ><i class="icon-chevron-left"></i></button>
                     % endif 
-                    ${result['task_name']} from grader ${i+1}
+                    ${_("{result_of_task} from grader {number}").format(result_of_task = result['task_name'], number = i + 1)}
                     % if num_results>1:
                         <button href="#" alt="Next" class="rubric-button rubric-next-button"
                             % if (i+1) >= num_results:
@@ -45,4 +45,3 @@
     %endif
 
 % endfor
-

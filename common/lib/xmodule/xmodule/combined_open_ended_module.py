@@ -6,6 +6,7 @@ from pkg_resources import resource_string
 from xmodule.raw_module import RawDescriptor
 from .x_module import XModule, module_attr
 from xblock.fields import Integer, Scope, String, List, Float, Boolean
+from xblock.core import XBlock
 from xmodule.open_ended_grading_classes.combined_open_ended_modulev1 import CombinedOpenEndedV1Module, CombinedOpenEndedV1Descriptor
 from collections import namedtuple
 from .fields import Date, Timedelta
@@ -359,6 +360,7 @@ class CombinedOpenEndedFields(object):
     )
 
 
+@XBlock.needs("i18n")
 class CombinedOpenEndedModule(CombinedOpenEndedFields, XModule):
     """
     This is a module that encapsulates all open ended grading (self assessment, peer assessment, etc).
