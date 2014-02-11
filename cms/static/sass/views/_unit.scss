@@ -1368,3 +1368,12 @@ body.unit {
 div.wrapper-comp-editor.is-inactive ~ div.launch-latex-compiler{
  display: none;
 }
+
+// ====================
+
+// xblock - unit page container
+
+body.unit .xblock-type-container {
+
+  margin: 0px;
+}
